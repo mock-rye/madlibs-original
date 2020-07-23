@@ -125,5 +125,4 @@ dmypy.json
 .pyre/
 
 # misc stuff, probably created by the scripts during runtime
-*.json
-!/web/allWords.json
+allWords.json
