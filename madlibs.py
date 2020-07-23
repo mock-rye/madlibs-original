@@ -1,8 +1,8 @@
 import json
 import random as rand
-json_words = open('allWords.json', 'r')
-json_languages = open('languages.json', 'r')
-json_types = open('types.json', 'r')
+json_words = open('JSONs/allWords.json', 'r')
+json_languages = open('JSONs/languages.json', 'r')
+json_types = open('JSONs/types.json', 'r')
 
 words = json.load(json_words)
 languages = json.load(json_languages)

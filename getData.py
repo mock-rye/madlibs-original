@@ -3,10 +3,10 @@ import json
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 endpoint_url = "https://query.wikidata.org/sparql"
-file = open('allWords.json','w+')
+file = open('JSONs/allWords.json','w+')
 
-json_languages = open('languages.json', 'r')
-json_categories = open('categories.json', 'r')
+json_languages = open('JSONs/languages.json', 'r')
+json_categories = open('JSONs/categories.json', 'r')
 
 languages = json.load(json_languages)
 categories = json.load(json_categories)
