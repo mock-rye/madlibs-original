@@ -5,16 +5,12 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 endpoint_url = "https://query.wikidata.org/sparql"
 file = open('allWords.json','w+')
 
-lang = 'Q1860'
+json_languages = open('languages.json', 'r')
+json_categories = open('categories.json', 'r')
 
-categories = {
-  'noun': 'Q1084',
-  'adverb': 'Q380057',
-  'adjective': 'Q34698',
-  'verb': 'Q24905'
-}
+languages = json.load(json_languages)
+categories = json.load(json_categories)
 
-results = {}
 
 query_base = """SELECT ?lexeme ?lemma WHERE {
   ?lexeme dct:language wd:$LANGUAGE.
@@ -34,15 +30,20 @@ def get_results(endpoint_url, query):
     out = [out[i]['lemma']['value'] for i in range(len(out))]
     return out
     
-def process_query(language, category):
-    query = query_base.replace('$LANGUAGE', language)
-    query = query.replace('$CATEGORY', category)
+def process_query(languageID, categoryID):
+    query = query_base.replace('$LANGUAGE', languageID)
+    query = query.replace('$CATEGORY', categoryID)
     print(query)
     return query
 
 
-for cat in categories:
-    results[cat] = get_results(endpoint_url, process_query(lang, categories[cat]))
+results = {}
+for lang in languages:
+    results[lang] = {}
+    for cat in categories:
+        langID = languages[lang]
+        catID = categories[cat]
+        results[lang][cat] = get_results(endpoint_url, process_query(langID, catID))
 
 json.dump(results, file, indent=4)
 file.close()
